@@ -33,29 +33,23 @@ public class Simulator {
 				int win = 6;
 				int draw = 3;
 				int lost = 0;
-
-				int choice=0;
-				if("X".equalsIgnoreCase(me)){choice=1;}
-				if("Y".equalsIgnoreCase(me)){choice=2;}
-				if("Z".equalsIgnoreCase(me)){choice=3;}
-
-				System.out.println("opponent="+opponent +" / me="+me);
+				int rock = 1;
+				int paper = 2;
+				int scissors = 3;
 
 				if ("A".equalsIgnoreCase(opponent)){
-					if("X".equalsIgnoreCase(me)){score+=choice + draw;}//3+1
-					if("Y".equalsIgnoreCase(me)){score+=choice + win;}//6+1
-					if("Z".equalsIgnoreCase(me)){score+=choice + lost;}//0+1
-
+					if("X".equalsIgnoreCase(me)){score += lost + scissors;}
+					if("Y".equalsIgnoreCase(me)){score += draw + rock;}
+					if("Z".equalsIgnoreCase(me)){score += win + paper;}
 				}else if ("B".equalsIgnoreCase(opponent)){
-					if("X".equalsIgnoreCase(me)){score+=choice + lost;}
-					if("Y".equalsIgnoreCase(me)){score+=choice + draw;}
-					if("Z".equalsIgnoreCase(me)){score+=choice + win;}
-
+					if("X".equalsIgnoreCase(me)){score += lost + rock;}
+					if("Y".equalsIgnoreCase(me)){score += draw + paper;}
+					if("Z".equalsIgnoreCase(me)){score += win + scissors;}
 				}else {
 					//C
-					if("X".equalsIgnoreCase(me)){score+=choice + win;}
-					if("Y".equalsIgnoreCase(me)){score+=choice + lost;}
-					if("Z".equalsIgnoreCase(me)){score+=choice + draw;}
+					if("X".equalsIgnoreCase(me)){score += lost + paper;}
+					if("Y".equalsIgnoreCase(me)){score += draw + scissors;}
+					if("Z".equalsIgnoreCase(me)){score += win + rock;}
 				}
 				
 				// read next line
