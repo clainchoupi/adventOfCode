@@ -17,6 +17,61 @@ public class Simulator {
 	public Simulator(File file) {
 		this.file = file;
 	}
+
+	public void day2ParseInput1() {
+		BufferedReader reader;
+		int score=0;
+		
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				String[] inputs = line.split(" ");
+				String opponent = inputs[0];
+				String me = inputs[1];
+				int win = 6;
+				int draw = 3;
+				int lost = 0;
+
+				int choice=0;
+				if("X".equalsIgnoreCase(me)){choice=1;}
+				if("Y".equalsIgnoreCase(me)){choice=2;}
+				if("Z".equalsIgnoreCase(me)){choice=3;}
+
+				System.out.println("opponent="+opponent +" / me="+me);
+
+				if ("A".equalsIgnoreCase(opponent)){
+					if("X".equalsIgnoreCase(me)){score+=choice + draw;}//3+1
+					if("Y".equalsIgnoreCase(me)){score+=choice + win;}//6+1
+					if("Z".equalsIgnoreCase(me)){score+=choice + lost;}//0+1
+
+				}else if ("B".equalsIgnoreCase(opponent)){
+					if("X".equalsIgnoreCase(me)){score+=choice + lost;}
+					if("Y".equalsIgnoreCase(me)){score+=choice + draw;}
+					if("Z".equalsIgnoreCase(me)){score+=choice + win;}
+
+				}else {
+					//C
+					if("X".equalsIgnoreCase(me)){score+=choice + win;}
+					if("Y".equalsIgnoreCase(me)){score+=choice + lost;}
+					if("Z".equalsIgnoreCase(me)){score+=choice + draw;}
+				}
+				
+				// read next line
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+		System.out.println("Score day2 = " + score);
+
+	}
+
+	//------------------------------------------------
 	
 	public void day1ParseInput1() {
 		BufferedReader reader;
@@ -58,7 +113,7 @@ public class Simulator {
 
 		}
 
-		System.out.println("Score = " + score);
+		System.out.println("Score day1 = " + score);
 
 	}
 	
