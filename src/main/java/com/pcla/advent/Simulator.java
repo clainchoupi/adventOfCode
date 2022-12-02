@@ -5,9 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 
 public class Simulator {
@@ -94,17 +94,11 @@ public class Simulator {
 		}
 
 		//Garder les 3 meilleures calories
-		if (calories != null && !calories.isEmpty()){
-			List<Integer> listCalories = calories.stream()
+		if (CollectionUtils.isNotEmpty(calories)){
+			score = calories.stream()
 				.sorted(Comparator.reverseOrder())
 				.limit(3)
-				.collect(Collectors.toList());
-			Iterator<Integer> it = listCalories.iterator();
-			while (it.hasNext()){
-				Integer i =  it.next();
-				score += i;
-			}
-
+				.reduce(0, (a, b) -> a + b);
 		}
 
 		System.out.println("Score day1 = " + score);
