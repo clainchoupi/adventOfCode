@@ -7,7 +7,7 @@ public class App {
         
         File input1 = new File("src/main/resources/03/1.txt");
         Simulator simulator = new Simulator(input1);
-        simulator.day3ParseInput1();
+        simulator.day3ParseInput2();
         
     }
 }
