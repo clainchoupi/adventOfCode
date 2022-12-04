@@ -39,7 +39,7 @@ public class Simulator {
  				FourRangeSection firstRange = new FourRangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
 				FourRangeSection secondRange = new FourRangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
 
-				if (FourRangeSection.isIncluded(firstRange, secondRange)){
+				if (FourRangeSection.isOverlapping(firstRange, secondRange)){
 					score +=1;
 				}
 				

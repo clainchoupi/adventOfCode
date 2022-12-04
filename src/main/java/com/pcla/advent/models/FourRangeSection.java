@@ -34,5 +34,19 @@ public class FourRangeSection {
         return result;
     }
 
+    public static boolean isOverlapping(FourRangeSection first, FourRangeSection second){
+        boolean result = false;
+
+        if (first.getStart() >= second.getStart() && first.getStart() <= second.getEnd() ){return true;}
+        if (second.getStart() >= first.getStart() && second.getStart() <= first.getEnd() ){return true;}
+
+        if (second.getEnd() >= first.getStart() && second.getEnd() <= first.getStart() ){return true;}
+        if (first.getEnd() >= second.getStart() && first.getEnd() <= second.getStart() ){return true;}
+
+        
+
+        return result;
+    }
+
     
 }
