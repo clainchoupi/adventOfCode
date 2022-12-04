@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.pcla.advent.models.FourRangeSection;
+
 
 public class Simulator {
 	private File file;
@@ -18,7 +20,42 @@ public class Simulator {
 	public Simulator(File file) {
 		this.file = file;
 	}
+	
+	//------------------------------------------------
+	
+	public void day4ParseInput1() {
+		BufferedReader reader;
+		int score=0;
+		List<Character> letters = new ArrayList<Character>();
+		
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				String[] ranges = line.split(",");
+				String[] firstValues = ranges[0].split("-");
+				String[] secondValues = ranges[1].split("-");
+ 				FourRangeSection firstRange = new FourRangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
+				FourRangeSection secondRange = new FourRangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
 
+				if (FourRangeSection.isIncluded(firstRange, secondRange)){
+					score +=1;
+				}
+				
+				// read next group
+				line = reader.readLine();
+			}
+			reader.close();
+			System.out.println(letters);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Score day4 part1 = " + score);
+	}
+	
 	//------------------------------------------------
 	
 	public void day3ParseInput2() {
@@ -31,14 +68,14 @@ public class Simulator {
 			String line = reader.readLine();
 			String line2, line3;
 			
-
-
+			
+			
 			while (line != null) {
 				// read 2 others lines
 				line2 = reader.readLine();
 				line3 = reader.readLine();
 				letters.add(getIntersectChar(line, line2, line3));
-
+				
 				// read next group
 				line = reader.readLine();
 			}
@@ -57,16 +94,16 @@ public class Simulator {
 		System.out.println("Score day3 part2 = " + score);
 		
 	}
-
+	
 	private Character getIntersectChar(String s1, String s2, String s3){
 		//Retourne le character commun pour les 3 listes
 		List<Character> charsFirst = s1.chars().mapToObj(e -> (char)e).collect(Collectors.toList());
 		List<Character> charsSecond = s2.chars().mapToObj(e -> (char)e).collect(Collectors.toList());
 		List<Character> charsThird = s3.chars().mapToObj(e -> (char)e).collect(Collectors.toList());
 		return charsFirst.stream().distinct()
-			.filter(charsSecond::contains)
-			.filter(charsThird ::contains)
-			.findFirst().orElseThrow();
+		.filter(charsSecond::contains)
+		.filter(charsThird ::contains)
+		.findFirst().orElseThrow();
 	}
 	
 	public void day3ParseInput1() {
