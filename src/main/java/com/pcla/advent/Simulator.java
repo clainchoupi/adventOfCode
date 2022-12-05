@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,83 @@ public class Simulator {
 	
 	//------------------------------------------------
 	
+	public void day5ParseInput1() {
+		BufferedReader reader;
+		int score=0;
+		HashMap<Integer, String> piles = new HashMap();
+		
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String line = reader.readLine();
+			boolean firstBloc = true;
+			
+			while (line != null) {
+				if (firstBloc){
+					if (line.isEmpty() || line.startsWith(" 1")){
+						//fin du premier bloc
+						firstBloc = false;
+						line = reader.readLine();
+					}else{
+						//Lecture du premier bloc
+						String[] inputLine = line.split("(?<=\\G.{4})");
+						for(int i=0; i< inputLine.length; i++){
+							if(piles.get(i) == null){
+								piles.put(i, "");
+							}
+							
+							String letter = inputLine[i].split("")[1];
+							if (letter != null && !letter.equalsIgnoreCase(" ")){
+								String result = letter + piles.get(i);
+								piles.put(i, result);
+							}
+						}
+						
+					}
+					
+				}else{
+					//Lecture des mouvements
+					String[] moves = line.split(" ");
+					Integer nbMove = Integer.parseInt(moves[1]);
+					Integer fromStack = Integer.parseInt(moves[3])-1;
+					Integer toStack = Integer.parseInt(moves[5])-1;
+					
+					for (int j = 0; j < nbMove; j++){
+						//Recupère la lettre a deplacer
+						String letterToMove = piles.get(fromStack).substring(piles.get(fromStack).length() - 1);
+
+						//Supprime la lettre de From
+						piles.put(fromStack, piles.get(fromStack).substring(0, piles.get(fromStack).length() - 1));
+
+						//Ajoute la lettre dans To
+						piles.put(toStack, piles.get(toStack)+letterToMove);
+
+					}
+					
+				}
+				
+				line = reader.readLine();
+			}
+			reader.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//Print result
+		String resultStack = "";
+		Iterator it = piles.keySet().iterator();
+		while (it.hasNext()){
+			Integer key = (Integer) it.next();
+			resultStack += piles.get(key).substring(piles.get(key).length() - 1);
+		}
+
+		//piles.get(fromStack).substring(piles.get(fromStack).length() - 1);
+		
+		System.out.println("Score day5 part1 = " + resultStack);
+	}
+	
+	//------------------------------------------------
+	
 	public void day4ParseInput1() {
 		BufferedReader reader;
 		int score=0;
@@ -36,10 +115,10 @@ public class Simulator {
 				String[] ranges = line.split(",");
 				String[] firstValues = ranges[0].split("-");
 				String[] secondValues = ranges[1].split("-");
- 				FourRangeSection firstRange = new FourRangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
+				FourRangeSection firstRange = new FourRangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
 				FourRangeSection secondRange = new FourRangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
-
-				if (FourRangeSection.isOverlapping(firstRange, secondRange)){
+				
+				if (FourRangeSection.isIncluded(firstRange, secondRange)){
 					score +=1;
 				}
 				
