@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 
-import com.pcla.advent.models.FourRangeSection;
+import com.pcla.advent.models.RangeSection;
 
 
 public class Simulator {
@@ -65,17 +65,14 @@ public class Simulator {
 					Integer fromStack = Integer.parseInt(moves[3])-1;
 					Integer toStack = Integer.parseInt(moves[5])-1;
 					
-					for (int j = 0; j < nbMove; j++){
-						//Recupère la lettre a deplacer
-						String letterToMove = piles.get(fromStack).substring(piles.get(fromStack).length() - 1);
-
-						//Supprime la lettre de From
-						piles.put(fromStack, piles.get(fromStack).substring(0, piles.get(fromStack).length() - 1));
-
-						//Ajoute la lettre dans To
-						piles.put(toStack, piles.get(toStack)+letterToMove);
-
-					}
+					//Recupère la lettre a deplacer
+					String lettersToMove = piles.get(fromStack).substring(piles.get(fromStack).length() - nbMove);
+					
+					//Supprime les lettres de From
+					piles.put(fromStack, piles.get(fromStack).substring(0, piles.get(fromStack).length() - nbMove));
+					
+					//Ajoute la lettre dans To
+					piles.put(toStack, piles.get(toStack)+lettersToMove);
 					
 				}
 				
@@ -86,7 +83,7 @@ public class Simulator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		//Print result
 		String resultStack = "";
 		Iterator it = piles.keySet().iterator();
@@ -94,10 +91,8 @@ public class Simulator {
 			Integer key = (Integer) it.next();
 			resultStack += piles.get(key).substring(piles.get(key).length() - 1);
 		}
-
-		//piles.get(fromStack).substring(piles.get(fromStack).length() - 1);
 		
-		System.out.println("Score day5 part1 = " + resultStack);
+		System.out.println("Score day5 part2 = " + resultStack);
 	}
 	
 	//------------------------------------------------
@@ -115,10 +110,10 @@ public class Simulator {
 				String[] ranges = line.split(",");
 				String[] firstValues = ranges[0].split("-");
 				String[] secondValues = ranges[1].split("-");
-				FourRangeSection firstRange = new FourRangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
-				FourRangeSection secondRange = new FourRangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
+				RangeSection firstRange = new RangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
+				RangeSection secondRange = new RangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
 				
-				if (FourRangeSection.isIncluded(firstRange, secondRange)){
+				if (RangeSection.isIncluded(firstRange, secondRange)){
 					score +=1;
 				}
 				
