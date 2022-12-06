@@ -1,10 +1,10 @@
 package com.pcla.advent.models;
 
-public class RangeSection {
+public class Day04RangeSection {
 
     Integer intStart, intEnd;
 
-    public RangeSection(Integer start, Integer end){
+    public Day04RangeSection(Integer start, Integer end){
         intStart = start;
         intEnd = end;
     }
@@ -25,7 +25,7 @@ public class RangeSection {
         this.intEnd = intEnd;
     }
 
-    public static boolean isIncluded(RangeSection first, RangeSection second){
+    public static boolean isIncluded(Day04RangeSection first, Day04RangeSection second){
         boolean result = false;
 
         if (first.getStart() <= second.getStart() && first.getEnd() >= second.getEnd()){return true;}
@@ -34,7 +34,7 @@ public class RangeSection {
         return result;
     }
 
-    public static boolean isOverlapping(RangeSection first, RangeSection second){
+    public static boolean isOverlapping(Day04RangeSection first, Day04RangeSection second){
         boolean result = false;
 
         if (first.getStart() >= second.getStart() && first.getStart() <= second.getEnd() ){return true;}

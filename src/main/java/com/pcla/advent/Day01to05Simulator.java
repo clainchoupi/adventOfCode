@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 
-import com.pcla.advent.models.RangeSection;
+import com.pcla.advent.models.Day04RangeSection;
 
 
-public class Simulator {
+public class Day01to05Simulator {
 	private File file;
 	
 	
-	public Simulator(File file) {
+	public Day01to05Simulator(File file) {
 		this.file = file;
 	}
 	
@@ -110,10 +110,10 @@ public class Simulator {
 				String[] ranges = line.split(",");
 				String[] firstValues = ranges[0].split("-");
 				String[] secondValues = ranges[1].split("-");
-				RangeSection firstRange = new RangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
-				RangeSection secondRange = new RangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
+				Day04RangeSection firstRange = new Day04RangeSection(Integer.parseInt(firstValues[0]), Integer.parseInt(firstValues[1]));
+				Day04RangeSection secondRange = new Day04RangeSection(Integer.parseInt(secondValues[0]), Integer.parseInt(secondValues[1]));
 				
-				if (RangeSection.isIncluded(firstRange, secondRange)){
+				if (Day04RangeSection.isIncluded(firstRange, secondRange)){
 					score +=1;
 				}
 				
